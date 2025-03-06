@@ -53,10 +53,6 @@ public class TeamService {
      * @param id The unique identifier of the team to be deleted.
      */
         public void deleteTeam(Long id) {
-            try {
                 teamRepository.deleteById(id);
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
         }
 }

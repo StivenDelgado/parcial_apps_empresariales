@@ -1,6 +1,7 @@
 package com.app.parcial.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
@@ -54,6 +55,16 @@ public class Team {
     @ManyToOne
     @JoinColumn(name = "league_id", nullable = false)
     private League league;
+
+    // Relación con los partidos donde el equipo es local (homeTeam)
+    @OneToMany(mappedBy = "homeTeam", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Match> homeMatches;
+
+    // Relación con los partidos donde el equipo es visitante (awayTeam)
+    @OneToMany(mappedBy = "awayTeam", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Match> awayMatches;
 
     /**
      * Gets the unique identifier of the team.
